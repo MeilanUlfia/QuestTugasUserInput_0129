@@ -30,6 +30,7 @@ import kotlinx.coroutines.delay
 fun BiodataScreen() {
     val pagerState = rememberPagerState(pageCount = { headerSlides.size })
     val equalWeight = floatResource(R.dimen.weight_equal)
+    val slideDelay = integerResource(R.integer.slide_delay_ms).toLong()
 
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
@@ -37,6 +38,23 @@ fun BiodataScreen() {
     var birthDate by rememberSaveable { mutableStateOf("") }
     var experience by rememberSaveable { mutableStateOf("") }
     var skills by rememberSaveable { mutableStateOf(emptySet<Skill>()) }
+    var showSummary by rememberSaveable { mutableStateOf(false) }
+
+    val isFormValid = firstName.isNotBlank() &&
+            lastName.isNotBlank() &&
+            email.isValidEmail() &&
+            birthDate.isNotEmpty() &&
+            experience.isNotEmpty() &&
+            skills.isNotEmpty()
+
+    LaunchedEffect(pagerState, slideDelay) {
+        while (true) {
+            delay(slideDelay)
+            pagerState.animateScrollToPage(
+                (pagerState.currentPage + 1) % pagerState.pageCount
+            )
+        }
+    }
 
     Scaffold(
         containerColor = colorResource(R.color.screen_background)
@@ -45,6 +63,7 @@ fun BiodataScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = innerPadding.calculateBottomPadding())
+                .imePadding()
         ) {
             HeaderPager(
                 pagerState = pagerState,
@@ -129,8 +148,26 @@ fun BiodataScreen() {
                             skills = if (skill in skills) skills - skill else skills + skill
                         }
                     )
+
+                    ProceedButton(
+                        enabled = isFormValid,
+                        onClick = { showSummary = true },
+                        modifier = Modifier.padding(top = dimensionResource(R.dimen.button_top_margin))
+                    )
                 }
             }
         }
+    }
+
+    if (showSummary) {
+        SummaryDialog(
+            firstName = firstName.trim(),
+            lastName = lastName.trim(),
+            email = email.trim(),
+            birthDate = birthDate,
+            experience = experience,
+            skills = skills,
+            onDismiss = { showSummary = false }
+        )
     }
 }
