@@ -16,4 +16,28 @@
     <string name="skill_web">Web</string>
 
     <string name="btn_proceed">Proceed</string>
+
+    <string-array name="experience_options">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Expert</item>
+    </string-array>
+
+    <string name="date_pattern" translatable="false">dd/MM/yyyy</string>
+    <string name="timezone_utc" translatable="false">UTC</string>
+    <string name="list_separator">", "</string>
+
+    <string name="error_email">Format email tidak valid</string>
+
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Batal</string>
+    <string name="summary_title">Data Berhasil Disimpan</string>
+    <string name="summary_message">Nama: %1$s %2$s\nEmail: %3$s\nTgl Lahir: %4$s\nExperience: %5$s\nSkill: %6$s</string>
+
+    <string name="cd_pick_date">Pilih tanggal lahir</string>
+    <string name="cd_open_dropdown">Buka pilihan experience</string>
+    <string name="cd_header_snoopy">Boneka Snoopy di tepi laut</string>
+    <string name="cd_header_sea">Air laut biru berkilau</string>
+    <string name="cd_header_hirono">Boneka Hirono berkostum beruang</string>
+    <string name="cd_header_coklat">Tekstur kain tartan cokelat</string>
 </resources>
